@@ -1,6 +1,4 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
+<script></script>
 
 <template>
   <RouterView />
@@ -10,23 +8,9 @@ import { RouterLink, RouterView } from 'vue-router'
 @import '@/assets/base.css';
 
 #app {
-  max-width: 1280px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 2rem;
-
+  padding: 1.5rem;
   font-weight: normal;
 }
-
-/* @media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-} */
 </style>
