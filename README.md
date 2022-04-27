@@ -40,6 +40,8 @@ npm install
 npm run dev
 ```
 
+Once finished: to access the app, open any browser and navigate to `http://localhost:3000/`
+
 ### Compile and Minify for Production
 
 ```sh
