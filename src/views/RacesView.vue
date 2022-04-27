@@ -58,6 +58,9 @@ export default {
       }
     }, 1000);
   },
+  beforeUnmount() {
+    clearInterval(this.timeoutHandler);
+  },
 };
 </script>
 

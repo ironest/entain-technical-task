@@ -41,6 +41,9 @@ export default {
     this.raceType = this.getRaceType();
     setInterval(this.formatCountdown, 1000);
   },
+  beforeUnmount() {
+    clearInterval(this.timeoutHandler);
+  },
 };
 </script>
 
