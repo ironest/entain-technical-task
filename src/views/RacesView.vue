@@ -49,7 +49,6 @@ export default {
   mounted() {
     this.fetchRaces();
     this.timeoutHandler = setInterval(() => {
-      // this.races = this.rawRaces.filter((race) => race.advertised_start.seconds >= this.getCurrentEpoch() - 0);
       if (
         !this.loading && // the API is currently being fetched
         this.races[0].advertised_start.seconds < this.getCurrentEpoch() - 60

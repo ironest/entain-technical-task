@@ -51,3 +51,52 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Disclaimer & assumptions
+
+Given the following requirements:
+
+- `A user should see 5 races at all times`
+- `User should be able to toggle race categories`
+
+I assumed the 5 races "at all time" should only be expected when no filters are in place. Reason for this assumption is because the given API (`/v1/racing/?method=nextraces`) does not guarantee to return any minimun number of races for each category.
+
+To overcome this issue, I could have fetched 100 races at once and, statistically speaking, I would most likely be able to get at least 5 races for each category... but I doubted that was expected. Alternatively, I've noticed that in production, the Neds website uses a different API (`/v2/racing/next-races-category-group`) that does guarantee X number of races per category. Not sure if I was allowed to use that or not... so I simply followed to the given assignment.
+
+In conclusion, I decided to settle for something in the middle and having the app fetching 20 races at once and showing (at max) 5 races at all times.
+
+## Documentation
+
+### Usage:
+
+The app is accessible from the `/` route.
+Any different routes are redirected to `/`.
+
+### Components structure:
+
+- `views/RacesView.vue`
+
+  - Employed as a routing landing page
+  - In its template, it renders `RaceList` and `RaceFilters` components
+  - On mount, it fetches races from the NEDS API and sorts the races by advertised start time
+  - Whenever at least one of the races advertised start time becomes older than 60 seconds, they are removed from the "eligible" races and a new fetch is issued
+
+- `components/RaceList`
+
+  - Employed to render the static structure of the table containing the list of races.
+  - It's responsive and adapts to small devices
+  - It receives a list of races (through props) and loops through them to render X more `RaceItem` components
+
+- `components/RaceItem`
+
+  - Employed to render each individual table row, showing race attributes such
+    - the Location (`meeting_name`)
+    - the race number (`race_number`)
+    - the race type (`category_id` mapped into an SVG symbol)
+    - the race advertise starts (`advertised_start.seconds` transformed into a human friendly countdown)
+  - It updates its own countdown each second
+
+- `components/RaceFilters`
+
+  - Enables the filtering/toggling feature, where a user can specify which race categories they are interested in
+  - The chosen category(s) are passed back to the `RaceView` parent component through a custom event being emitted.
