@@ -92,7 +92,7 @@ Any different routes are redirected to `/`.
   - Employed to render each individual table row, showing race attributes such
     - the Location (`meeting_name`)
     - the race number (`race_number`)
-    - the race type (`category_id` mapped into an SVG symbol)
+    - the race type (`category_id` mapped into an SVG symbol) (I brutally copied the production svg icons used by Neds and places as assets)
     - the race advertise starts (`advertised_start.seconds` transformed into a human friendly countdown)
   - It updates its own countdown each second
 
