@@ -29,4 +29,35 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.categories {
+  display: flex;
+  justify-content: center;
+  label {
+    cursor: pointer;
+    min-width: 120px;
+    padding: 12px 16px;
+    background-color: rgba(63, 81, 181, 0.08);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    margin: 24px 12px;
+    user-select: none;
+    input[type='checkbox'] {
+      margin-right: 12px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .categories {
+    display: flex;
+    flex-direction: column;
+    label {
+      margin: 6px 0;
+    }
+    label:last-of-type {
+      margin-bottom: 24px;
+    }
+  }
+}
+</style>
