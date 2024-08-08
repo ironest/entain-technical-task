@@ -1,50 +1,53 @@
-<script>
+<script setup>
+import { ref, computed, onBeforeUnmount, onMounted } from 'vue';
 import categories from '../shared/categories';
-export default {
-  name: 'RaceItem',
-  props: ['race'],
-  data() {
-    return {
-      countdown: '',
-      isStarted: false,
-      raceType: '',
-    };
-  },
-  methods: {
-    formatCountdown() {
-      const timeDiff = this.race.advertised_start.seconds - Math.round(Date.now() / 1000);
-      if (timeDiff > 0) {
-        const h = Math.floor(timeDiff / 3600);
-        const m = Math.floor((timeDiff % 3600) / 60);
-        const s = Math.floor(timeDiff % 60);
-        const countdown = [];
-        if (h > 0) countdown.push(`${h}h`);
-        if (m > 0) countdown.push(`${m}m`);
-        countdown.push(`${s}s`);
-        this.countdown = countdown.join(' ');
-      } else {
-        if (timeDiff > -60) {
-          this.countdown = `${timeDiff}s`;
-        } else {
-          this.countdown = 'Closed';
-        }
-        this.isStarted = true;
-      }
-    },
-    getRaceType() {
-      const { name } = categories.find((cat) => cat.id === this.race.category_id);
-      return name ? name : 'unknown';
-    },
-  },
-  mounted() {
-    this.formatCountdown();
-    this.raceType = this.getRaceType();
-    setInterval(this.formatCountdown, 1000);
-  },
-  beforeUnmount() {
-    clearInterval(this.timeoutHandler);
-  },
-};
+
+// Declare props
+const props = defineProps(['race']);
+
+const countdown = ref('');
+const isStarted = ref(false);
+const raceType = ref('');
+
+function formatCountdown() {
+  const timeDiff = props.race.advertised_start.seconds - Math.round(Date.now() / 1000);
+  if (timeDiff > 0) {
+    const h = Math.floor(timeDiff / 3600);
+    const m = Math.floor((timeDiff % 3600) / 60);
+    const s = Math.floor(timeDiff % 60);
+    const countdownArray = [];
+    if (h > 0) countdownArray.push(`${h}h`);
+    if (m > 0) countdownArray.push(`${m}m`);
+    countdownArray.push(`${s}s`);
+    countdown.value = countdownArray.join(' ');
+  } else {
+    if (timeDiff > -60) {
+      countdown.value = `${timeDiff}s`;
+    } else {
+      countdown.value = 'Closed';
+    }
+    isStarted.value = true;
+  }
+}
+
+// The original getRaceType could be a function
+// but it's probably more efficient to use a computed property
+// cause of reactive dependencies (and caching)
+const computedRaceType = computed(() => {
+  const category = categories.find((cat) => cat.id === props.race.category_id);
+  return category ? category.name : 'unknown';
+});
+
+let intervalId;
+onMounted(() => {
+  formatCountdown();
+  raceType.value = computedRaceType.value;
+  intervalId = setInterval(formatCountdown, 1000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId);
+});
 </script>
 
 <template>
@@ -82,3 +85,4 @@ export default {
   color: #454545;
 }
 </style>
+, onBeforeMount

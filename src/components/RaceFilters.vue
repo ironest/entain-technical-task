@@ -7,26 +7,27 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import categories from '../shared/categories';
-export default {
-  name: 'RaceFilters',
-  data() {
-    return {
-      allCategories: categories,
-      selectedCategories: [],
-    };
-  },
-  methods: {
-    handleCheck() {
-      this.$emit('filterBy', this.selectedCategories);
-    }
-  },
-  mounted() {
-    this.selectedCategories = this.allCategories.map((c) => c.id);
-    this.$emit('filterBy', this.selectedCategories);
-  },
-};
+
+// Define emits
+const emit = defineEmits(['filterBy']);
+
+// Define state using refs
+const allCategories = ref(categories);
+const selectedCategories = ref([]);
+
+// Method to handle checkbox change
+function handleCheck() {
+  emit('filterBy', selectedCategories.value);
+}
+
+// Emit the initial filter event when the component is mounted
+onMounted(() => {
+  selectedCategories.value = allCategories.value.map((c) => c.id);
+  emit('filterBy', selectedCategories.value);
+});
 </script>
 
 <style lang="scss">

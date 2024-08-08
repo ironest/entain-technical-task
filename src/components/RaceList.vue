@@ -16,21 +16,11 @@
   </table>
 </template>
 
-<script>
+<script setup>
 import RaceItem from './RaceItem.vue';
 
-export default {
-  name: 'RaceList',
-  components: {
-    RaceItem,
-  },
-  props: ['races'],
-  data() {
-    return {
-      selectedCategories: [],
-    }
-  },
-}
+// Declare props
+defineProps(['races']);
 </script>
 
 <style lang="scss">
