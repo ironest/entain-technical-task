@@ -1,67 +1,62 @@
-<script>
+<script setup>
+import { ref, onBeforeUnmount, onMounted } from 'vue';
 import RaceList from '../components/RaceList.vue';
 import RaceFilters from '../components/RaceFilters.vue';
 
-export default {
-  name: 'RaceView',
-  components: {
-    RaceList,
-    RaceFilters,
-  },
-  data() {
-    return {
-      races: [],
-      filteredRaces: [],
-      timeoutHandler: null,
-      lastEpochFetch: -1,
-      loading: true,
-      selectedCategories: [],
-    };
-  },
-  methods: {
-    getCurrentEpoch() {
-      return Math.round(Date.now() / 1000);
-    },
-    handleFilters(values) {
-      this.selectedCategories = values;
-      this.filteredRaces = this.races.filter((race) => this.selectedCategories.includes(race.category_id)).slice(0, 5);
-    },
-    fetchRaces() {
-      fetch('https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=20')
-        .then((response) => response.json())
-        .then((result) => {
-          this.lastEpochFetch = this.getCurrentEpoch();
-          const ids = result.data.next_to_go_ids;
-          this.races = ids
-            .map((id) => result.data.race_summaries[id])
-            .sort((a, b) => a.advertised_start.seconds - b.advertised_start.seconds)
-            .filter((race) => race.advertised_start.seconds > this.getCurrentEpoch() + 60);
+// Reactive variables
+const races = ref([]);
+const filteredRaces = ref([]);
+// const lastEpochFetch = ref(-1);
+const selectedCategories = ref([]);
 
-          this.filteredRaces = this.races
-            .filter((race) => this.selectedCategories.includes(race.category_id))
-            .slice(0, 5);
+// Utility functions (simply copied from the original method)
+function getCurrentEpoch() {
+  return Math.round(Date.now() / 1000);
+}
 
-          this.loading = false;
-        })
-        .catch((err) => console.log(err.message));
-    },
-  },
-  mounted() {
-    this.fetchRaces();
-    this.timeoutHandler = setInterval(() => {
-      if (
-        !this.loading && // the API is currently being fetched
-        this.races[0].advertised_start.seconds < this.getCurrentEpoch() - 60
-      ) {
-        this.loading = true;
-        this.fetchRaces();
-      }
-    }, 1000);
-  },
-  beforeUnmount() {
-    clearInterval(this.timeoutHandler);
-  },
-};
+function handleFilters(values) {
+  selectedCategories.value = values;
+  filteredRaces.value = races.value.filter((race) => selectedCategories.value.includes(race.category_id)).slice(0, 5);
+}
+
+let loading = false;
+
+function fetchRaces() {
+  loading = true;
+  fetch('https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=20')
+    .then((response) => response.json())
+    .then((result) => {
+      const ids = result.data.next_to_go_ids;
+      races.value = ids
+        .map((id) => result.data.race_summaries[id])
+        .sort((a, b) => a.advertised_start.seconds - b.advertised_start.seconds)
+        .filter((race) => race.advertised_start.seconds > getCurrentEpoch());
+
+      filteredRaces.value = races.value
+        .filter((race) => selectedCategories.value.includes(race.category_id))
+        .slice(0, 5);
+
+      loading = false;
+    })
+    .catch((err) => console.log(err.message));
+}
+
+let intervalId;
+onMounted(() => {
+  fetchRaces();
+  intervalId = setInterval(() => {
+    if (
+      !loading.value && // the API is currently being fetched
+      races.value[0]?.advertised_start.seconds < getCurrentEpoch() - 60
+    ) {
+      fetchRaces();
+    }
+  }, 1000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId);
+});
 </script>
 
 <template>
@@ -69,6 +64,6 @@ export default {
   <div v-if="races.length > 0">
     <RaceFilters @filterBy="handleFilters" />
 
-    <RaceList :races="filteredRaces" :key="lastEpochFetch" />
+    <RaceList :races="filteredRaces" />
   </div>
 </template>
