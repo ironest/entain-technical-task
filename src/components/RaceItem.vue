@@ -10,7 +10,9 @@ const isStarted = ref(false);
 
 function formatCountdown() {
   const timeDiff = props.race.advertised_start.seconds - Math.round(Date.now() / 1000);
+
   if (timeDiff > 0) {
+    // If timeDiff is positive, we might have to format seconds/minutes/hours
     const h = Math.floor(timeDiff / 3600);
     const m = Math.floor((timeDiff % 3600) / 60);
     const s = Math.floor(timeDiff % 60);
@@ -19,13 +21,13 @@ function formatCountdown() {
     if (m > 0) countdownArray.push(`${m}m`);
     countdownArray.push(`${s}s`);
     countdown.value = countdownArray.join(' ');
-  } else {
-    if (timeDiff > -60) {
-      countdown.value = `${timeDiff}s`;
-    } else {
-      countdown.value = 'Closed';
-    }
+  } else if (timeDiff < 0 && timeDiff > -60) {
+    // If timeDiff is negative it can only be up to 60 seconds in the past
+    // No need to format neither minutes nor hours
+    countdown.value = `Closing in ${60 + timeDiff}s`;
     isStarted.value = true;
+  } else {
+    countdown.value = 'Closed';
   }
 }
 
@@ -34,7 +36,8 @@ function formatCountdown() {
 // cause of reactive dependencies (and caching)
 const computedRaceType = computed(() => {
   const category = categories.find((cat) => cat.id === props.race.category_id);
-  return category ? category.name : 'unknown';
+  // Races are filtered by categories on the api response
+  return category.name;
 });
 
 let intervalId;

@@ -35,7 +35,7 @@ function fetchRaces() {
       races.value = ids
         .map((id) => result.data.race_summaries[id])
         .sort((a, b) => a.advertised_start.seconds - b.advertised_start.seconds)
-        .filter((race) => race.advertised_start.seconds > getCurrentEpoch());
+        .filter((race) => race.advertised_start.seconds >= getCurrentEpoch() - 60);
 
       filteredRaces.value = races.value
         .filter((race) => selectedCategories.value.includes(race.category_id))
@@ -50,10 +50,7 @@ let intervalId;
 onMounted(() => {
   fetchRaces();
   intervalId = setInterval(() => {
-    if (
-      !loading.value && // the API is currently being fetched
-      races.value[0]?.advertised_start.seconds < getCurrentEpoch() - 60
-    ) {
+    if (races.value[0]?.advertised_start.seconds < getCurrentEpoch() - 60) {
       fetchRaces();
     }
   }, 1000);
