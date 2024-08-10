@@ -20,6 +20,6 @@ describe('RaceList', () => {
 
   it('Renders a RaceItem component for each race', () => {
     const raceItems = wrapper.findAllComponents(RaceItem);
-    expect(raceItems.length).toBe(3);
+    expect(raceItems.length).toBe(5);
   });
 });

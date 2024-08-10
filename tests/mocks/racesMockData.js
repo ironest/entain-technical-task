@@ -14,7 +14,19 @@ export const racesMockData = [
   {
     meeting_name: 'Fairview',
     race_number: '13',
-    advertised_start: { seconds: Math.round(Date.now() / 1000) + 240 }, // 4m in the future
+    advertised_start: { seconds: Math.round(Date.now() / 1000) + 3840 }, // 1h 4m in the future
+    category_id: '4a2788f8-e825-4d36-9894-efd4baf1cfae', // horse
+  },
+  {
+    meeting_name: 'Fairview',
+    race_number: '14',
+    advertised_start: { seconds: Math.round(Date.now() / 1000) - 60 }, // 1 min in the past
+    category_id: '4a2788f8-e825-4d36-9894-efd4baf1cfae', // horse
+  },
+  {
+    meeting_name: 'Fairview',
+    race_number: '15',
+    advertised_start: { seconds: Math.round(Date.now() / 1000) - 30 }, // 30 seconds in the past
     category_id: '4a2788f8-e825-4d36-9894-efd4baf1cfae', // horse
   },
 ];

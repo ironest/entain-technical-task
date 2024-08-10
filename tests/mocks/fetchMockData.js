@@ -1,12 +1,12 @@
 export const fetchMockData = {
   data: {
     next_to_go_ids: [
+      '73b249b6-05f6-46cc-a134-8480bd0c1db8',
       '86aa0748-9825-451b-a0cf-af896b963062',
       'f3010f77-0b87-47d6-8f81-ede16ebf7345',
       '84c2c069-a804-4c42-8fcc-b9300209de05',
       'c0f8f36f-82d9-4349-94f1-2aa0be0a0011',
       'a7760f36-4980-4042-a090-b0f1256e3610',
-      '73b249b6-05f6-46cc-a134-8480bd0c1db8',
       'ef6da080-4672-47fa-be99-cd972d3ca99b',
       '9e355230-1700-454a-980e-46d537078c8c',
       'f24c8adb-571e-4093-a833-64d5dd2ad81a',
@@ -26,7 +26,7 @@ export const fetchMockData = {
         meeting_name: 'Mildura',
         category_id: '4a2788f8-e825-4d36-9894-efd4baf1cfae',
         advertised_start: {
-          seconds: Math.round(Date.now() / 1000 + (Math.random() * 60 + 30)),
+          seconds: Math.round(Date.now() / 1000) - 60,
         },
       },
       '84c2c069-a804-4c42-8fcc-b9300209de05': {

@@ -44,4 +44,24 @@ describe('RacesView', () => {
     expect(wrapper.findComponent(RaceList).exists()).toBe(true);
     expect(wrapper.findAllComponents(RaceList).length).toBe(1);
   });
+
+  it('Race is older than 60 seconds', async () => {
+    // The mock data has a race started 60 seconds in the past
+    // Once older than 1 minutes - the app should refetch a fresh set of races
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // More than 1 means more times after onMounted()
+    expect(fetch.mock.calls.length).toBeGreaterThan(1);
+  });
+
+  it('Should clear the interval on unmount', () => {
+    // Mocking the clearInterval function
+    global.clearInterval = vi.fn();
+
+    // Forcing RaceItem component to unmount
+    wrapper.unmount();
+
+    // Check if clearInterval was called
+    expect(clearInterval).toHaveBeenCalled();
+  });
 });
