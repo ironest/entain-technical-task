@@ -2,6 +2,7 @@
 import { ref, onBeforeUnmount, onMounted } from 'vue';
 import RaceList from '../components/RaceList.vue';
 import RaceFilters from '../components/RaceFilters.vue';
+import { BASE_URL, MAX_RACES_SHOWN, MAX_RACES_FETCHED } from '../config';
 
 // Reactive variables
 const races = ref([]);
@@ -14,6 +15,10 @@ function getCurrentEpoch() {
   return Math.round(Date.now() / 1000);
 }
 
+function buildUrl(method) {
+  return `${BASE_URL}?method=${method}&count=${MAX_RACES_FETCHED}`;
+}
+
 function handleFilters(values) {
   selectedCategories.value = values;
   filteredRaces.value = races.value.filter((race) => selectedCategories.value.includes(race.category_id)).slice(0, 5);
@@ -23,7 +28,7 @@ let loading = false;
 
 function fetchRaces() {
   loading = true;
-  fetch('https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=20')
+  fetch(buildUrl('nextraces'))
     .then((response) => response.json())
     .then((result) => {
       const ids = result.data.next_to_go_ids;
@@ -34,7 +39,7 @@ function fetchRaces() {
 
       filteredRaces.value = races.value
         .filter((race) => selectedCategories.value.includes(race.category_id))
-        .slice(0, 5);
+        .slice(0, MAX_RACES_SHOWN);
 
       loading = false;
     })

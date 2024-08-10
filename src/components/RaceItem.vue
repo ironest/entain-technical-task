@@ -7,7 +7,6 @@ const props = defineProps(['race']);
 
 const countdown = ref('');
 const isStarted = ref(false);
-const raceType = ref('');
 
 function formatCountdown() {
   const timeDiff = props.race.advertised_start.seconds - Math.round(Date.now() / 1000);
@@ -41,7 +40,6 @@ const computedRaceType = computed(() => {
 let intervalId;
 onMounted(() => {
   formatCountdown();
-  raceType.value = computedRaceType.value;
   intervalId = setInterval(formatCountdown, 1000);
 });
 
@@ -66,9 +64,9 @@ onBeforeUnmount(() => {
         class="icon"
       >
         <!-- Horrible workaround... but somehow I couldn't bind the xlink:href attribute -->
-        <use v-if="raceType === 'greyhound'" xlink:href="../assets/svg-racing-icon.svg#greyhound-racing"></use>
-        <use v-if="raceType === 'harness'" xlink:href="../assets/svg-racing-icon.svg#harness-racing"></use>
-        <use v-if="raceType === 'horse'" xlink:href="../assets/svg-racing-icon.svg#horse-racing"></use>
+        <use v-if="computedRaceType === 'greyhound'" xlink:href="../assets/svg-racing-icon.svg#greyhound-racing"></use>
+        <use v-if="computedRaceType === 'harness'" xlink:href="../assets/svg-racing-icon.svg#harness-racing"></use>
+        <use v-if="computedRaceType === 'horse'" xlink:href="../assets/svg-racing-icon.svg#horse-racing"></use>
       </svg>
     </td>
 
@@ -85,4 +83,3 @@ onBeforeUnmount(() => {
   color: #454545;
 }
 </style>
-, onBeforeMount
