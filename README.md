@@ -40,6 +40,18 @@ npm run dev
 
 Once finished: to access the app, open any browser and navigate to `http://localhost:3000/`
 
+### Unit tests
+
+```sh
+npm run test
+```
+
+### Test coverage
+
+```sh
+npm run test:coverage
+```
+
 ### Compile and Minify for Production
 
 ```sh
@@ -52,7 +64,7 @@ npm run build
 npm run lint
 ```
 
-## Disclaimer & assumptions
+## Disclaimer & assumptions (April 2022)
 
 Given the following requirements:
 
@@ -100,3 +112,30 @@ Any different routes are redirected to `/`.
 
   - Enables the filtering/toggling feature, where a user can specify which race categories they are interested in
   - The chosen category(s) are passed back to the `RaceView` parent component through a custom event being emitted.
+
+## Latest update (August 2024)
+
+### Composition API
+
+Each Vue component in this App has been refactored, moving away from the Option API, in favour of the Composition API style. These changes provide an alternative syntax for organizing and structuring component logic. It also introduce a better reactive state and a few industry-standard lifecycle hooks (onMounted, onUnmounted, onBeforeUpdate).
+
+More info on style differences can be found [here](https://vuejs.org/guide/introduction.html#api-styles)
+
+### Unit Tests
+
+In this latest version, this repository includes a bunch of improvements on the Testing front:
+
+- Added new dependencies to the app
+  - vitest
+  - vitest/ui
+  - vue/test-utils
+  - vitest/coverage-v8
+- Added test sets for each component/view
+  - RaceList
+  - RaceItem
+  - RaceFilters
+  - RacesView
+- Ensured 100% test code coverage
+- Added mockData files
+
+![image](https://github.com/user-attachments/assets/83ed5ebf-3783-461b-b73e-3312da347b49)
