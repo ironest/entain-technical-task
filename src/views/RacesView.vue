@@ -62,10 +62,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <h1>Entain Technical Task</h1>
-  <div v-if="races.length > 0">
-    <RaceFilters @filterBy="handleFilters" />
-
-    <RaceList :races="filteredRaces" />
+  <div class="bg-white py-4 sm:py-24">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mx-auto max-w-2xl lg:text-center">
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-indigo-600 sm:text-4xl">Entain Technical Task</h1>
+        <p class="mt-6 text-lg leading-8 text-gray-600">
+          Single-page application displaying the "Next to go" races using the Neds API.
+        </p>
+      </div>
+      <div class="mx-auto mt-4 sm:mt-16" v-if="races.length > 0">
+        <RaceFilters @filterBy="handleFilters" />
+        <RaceList :races="filteredRaces" />
+      </div>
+    </div>
   </div>
 </template>
