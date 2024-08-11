@@ -139,3 +139,10 @@ In this latest version, this repository includes a bunch of improvements on the 
 - Added mockData files
 
 ![image](https://github.com/user-attachments/assets/83ed5ebf-3783-461b-b73e-3312da347b49)
+
+### Styling (Tailwind CSS)
+
+I have undertaken the challenge of replacing all custom CSS with Tailwind CSS in this application. By adopting Tailwind CSS, I streamlined the styling process while ensuring the app's appearance remains consistent with its original design.
+
+![alt text](https://github.com/ironest/entain-technical-task/blob/screenshots/screenshots/desktop-v2.png?raw=true)
+![alt text](https://github.com/ironest/entain-technical-task/blob/screenshots/screenshots/mobile-v2.png?raw=true)
