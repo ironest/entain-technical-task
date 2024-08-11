@@ -1,6 +1,35 @@
 # entain-technical-task
 
-## Task
+## Introduction
+
+This repo is my submission to Entain technical task to demonstrate my skills, thought process and methodology in building a web app.
+
+This repository contains my personal implementation of a technical test provided by Entain. It demonstrates my skills, thought process and methodology in building a web app.
+
+## Changelog
+
+### Version 2.0 (11 August 2024)
+
+Project improvements:
+
+- Composition API: each Vue component has been refactored, moving away from the Option API, in favour of the Composition API style. These changes provide an alternative syntax for organizing and structuring component logic. It also introduce a better reactive state and a few industry-standard lifecycle hooks (onMounted, onUnmounted, onBeforeUpdate).
+
+- Unit Tests:
+
+  - Employed and configured tools such as: `vitest` `vitest/ui` `vue/test-utils` `vitest/coverage-v8`
+  - Written test sets for each component/view
+  - Code coverage: 100%
+
+- Styling: I have undertaken the challenge of replacing all custom CSS with Tailwind CSS in this application without any prior experience with the CSS framework. By adopting Tailwind CSS, I streamlined the styling process while ensuring the app's appearance remains fairly consistent with its original (v.1) design.
+
+### Version 1.0 (27 April 2022)
+
+- Initial release
+  - My first attempt at this task with 4-5 days of studying Vue.
+  - Version 1.0 can be reviewed at this commit
+    [this commit](https://github.com/ironest/entain-technical-task/tree/ffa1a319977830f37686bc6d31e084675f04467e)
+
+## Objective / Task description
 
 Create a single page application that displays 'Next to go’ races using our API.
 
@@ -23,8 +52,8 @@ Categories are defined by IDs and are the following.
 
 ## Preview
 
-![alt text](https://github.com/ironest/entain-technical-task/blob/screenshots/screenshots/desktop.png?raw=true)
-![alt text](https://github.com/ironest/entain-technical-task/blob/screenshots/screenshots/mobile.png?raw=true)
+![alt text](https://github.com/ironest/entain-technical-task/blob/screenshots/screenshots/desktop-v2.png?raw=true)
+![alt text](https://github.com/ironest/entain-technical-task/blob/screenshots/screenshots/mobile-v2.png?raw=true)
 
 ## Project Setup
 
@@ -112,37 +141,3 @@ Any different routes are redirected to `/`.
 
   - Enables the filtering/toggling feature, where a user can specify which race categories they are interested in
   - The chosen category(s) are passed back to the `RaceView` parent component through a custom event being emitted.
-
-## Latest update (August 2024)
-
-### Composition API
-
-Each Vue component in this App has been refactored, moving away from the Option API, in favour of the Composition API style. These changes provide an alternative syntax for organizing and structuring component logic. It also introduce a better reactive state and a few industry-standard lifecycle hooks (onMounted, onUnmounted, onBeforeUpdate).
-
-More info on style differences can be found [here](https://vuejs.org/guide/introduction.html#api-styles)
-
-### Unit Tests
-
-In this latest version, this repository includes a bunch of improvements on the Testing front:
-
-- Added new dependencies to the app
-  - vitest
-  - vitest/ui
-  - vue/test-utils
-  - vitest/coverage-v8
-- Added test sets for each component/view
-  - RaceList
-  - RaceItem
-  - RaceFilters
-  - RacesView
-- Ensured 100% test code coverage
-- Added mockData files
-
-![image](https://github.com/user-attachments/assets/83ed5ebf-3783-461b-b73e-3312da347b49)
-
-### Styling (Tailwind CSS)
-
-I have undertaken the challenge of replacing all custom CSS with Tailwind CSS in this application. By adopting Tailwind CSS, I streamlined the styling process while ensuring the app's appearance remains consistent with its original design.
-
-![alt text](https://github.com/ironest/entain-technical-task/blob/screenshots/screenshots/desktop-v2.png?raw=true)
-![alt text](https://github.com/ironest/entain-technical-task/blob/screenshots/screenshots/mobile-v2.png?raw=true)
