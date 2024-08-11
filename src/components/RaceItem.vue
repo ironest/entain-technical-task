@@ -28,6 +28,7 @@ function formatCountdown() {
     isStarted.value = true;
   } else {
     countdown.value = 'Closed';
+    isStarted.value = true;
   }
 }
 
@@ -52,9 +53,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <tr>
-    <td>{{ race.meeting_name }}</td>
-    <td>
+  <tr class="hover:bg-indigo-50 hover:font-bold">
+    <td class="py-4 px-6 border-b border-gray-200">{{ race.meeting_name }}</td>
+    <td class="py-4 px-6 border-b border-gray-200 truncate">
       <svg
         id=""
         width="32"
@@ -72,17 +73,9 @@ onBeforeUnmount(() => {
         <use v-if="computedRaceType === 'horse'" xlink:href="../assets/svg-racing-icon.svg#horse-racing"></use>
       </svg>
     </td>
-
-    <td>{{ race.race_number }}</td>
-    <td :class="{ warning: isStarted }">{{ countdown }}</td>
+    <td class="py-4 px-6 border-b border-gray-200">{{ race.race_number }}</td>
+    <td class="py-4 px-6 border-b border-gray-200" :class="{ 'text-red-500': isStarted }">
+      {{ countdown }}
+    </td>
   </tr>
 </template>
-
-<style scoped>
-.warning {
-  color: red;
-}
-.icon {
-  color: #454545;
-}
-</style>
