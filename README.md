@@ -12,15 +12,20 @@ This repository contains my personal implementation of a technical test provided
 
 Project improvements:
 
-- Composition API: each Vue component has been refactored, moving away from the Option API, in favour of the Composition API style. These changes provide an alternative syntax for organizing and structuring component logic. It also introduce a better reactive state and a few industry-standard lifecycle hooks (onMounted, onUnmounted, onBeforeUpdate).
+- **Composition API**: each Vue component has been refactored, moving away from the Option API, in favour of the Composition API style. These changes provide an alternative syntax for organizing and structuring component logic. It also introduce a better reactive state and a few industry-standard lifecycle hooks (onMounted, onUnmounted, onBeforeUpdate).
 
-- Unit Tests:
+- **Unit Tests**:
 
   - Employed and configured tools such as: `vitest` `vitest/ui` `vue/test-utils` `vitest/coverage-v8`
   - Written test sets for each component/view
   - Code coverage: 100%
 
-- Styling: I have undertaken the challenge of replacing all custom CSS with Tailwind CSS in this application without any prior experience with the CSS framework. By adopting Tailwind CSS, I streamlined the styling process while ensuring the app's appearance remains fairly consistent with its original (v.1) design.
+- **Styling**: I have undertaken the challenge of replacing all custom CSS with Tailwind CSS in this application without any prior experience with the CSS framework. By adopting Tailwind CSS, I streamlined the styling process while ensuring the app's appearance remains fairly consistent with its original (v.1) design.
+
+- **Minor bugs**:
+  - `RaceList` component correctly re-renders when its own props (races) change without the workaround of binding a dummy `:key`
+  - Races started from less than 60 are now listed as "Closing in XXs" rather than being filtered out
+  - Properly clearing every setInterval ids
 
 ### Version 1.0 (27 April 2022)
 
