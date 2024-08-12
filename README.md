@@ -31,8 +31,7 @@ Project improvements:
 
 - Initial release
   - My first attempt at this task with 4-5 days of studying Vue.
-  - Version 1.0 can be reviewed at this commit
-    [this commit](https://github.com/ironest/entain-technical-task/tree/ffa1a319977830f37686bc6d31e084675f04467e)
+  - Version 1.0 can be reviewed at [this commit](https://github.com/ironest/entain-technical-task/tree/ffa1a319977830f37686bc6d31e084675f04467e)
 
 ## Objective / Task description
 

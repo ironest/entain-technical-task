@@ -24,10 +24,7 @@ function handleFilters(values) {
   filteredRaces.value = races.value.filter((race) => selectedCategories.value.includes(race.category_id)).slice(0, 5);
 }
 
-let loading = false;
-
 function fetchRaces() {
-  loading = true;
   fetch(buildUrl('nextraces'))
     .then((response) => response.json())
     .then((result) => {
@@ -40,8 +37,6 @@ function fetchRaces() {
       filteredRaces.value = races.value
         .filter((race) => selectedCategories.value.includes(race.category_id))
         .slice(0, MAX_RACES_SHOWN);
-
-      loading = false;
     })
     .catch((err) => console.log(err.message));
 }
